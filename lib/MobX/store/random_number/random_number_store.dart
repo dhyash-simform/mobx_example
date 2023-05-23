@@ -3,7 +3,7 @@ import 'dart:math';
 
 import 'package:mobx/mobx.dart';
 
-part 'random_number.g.dart';
+part 'random_number_store.g.dart';
 
 class RandomNumber = RandomNumberBase with _$RandomNumber;
 

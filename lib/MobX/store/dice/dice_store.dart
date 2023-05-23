@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:mobx/mobx.dart';
 
-part 'dice.g.dart';
+part 'dice_store.g.dart';
 
 class Dice = DiceBase with _$Dice;
 

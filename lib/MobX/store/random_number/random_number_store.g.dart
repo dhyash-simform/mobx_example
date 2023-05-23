@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'random_number.dart';
+part of 'random_number_store.dart';
 
 // **************************************************************************
 // StoreGenerator

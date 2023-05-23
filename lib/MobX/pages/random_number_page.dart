@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:mobx_example/MobX/mobx/random_number.dart';
+import 'package:mobx_example/MobX/store/random_number/random_number_store.dart';
 
-class RandomNumberPage extends StatefulWidget {
-  const RandomNumberPage({Key? key}) : super(key: key);
-
-  @override
-  State<RandomNumberPage> createState() => _RandomNumberPageState();
-}
-
-class _RandomNumberPageState extends State<RandomNumberPage> {
+class RandomNumberPage extends StatelessWidget {
   final random = RandomNumber();
+
+  RandomNumberPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

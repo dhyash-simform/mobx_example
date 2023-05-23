@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:mobx_example/MobX/mobx/todo_mobx.dart';
+import 'package:mobx_example/MobX/store/todo/todo_store.dart';
 import 'package:mobx_example/MobX/model/todo_modal.dart';
 import 'package:mobx_example/MobX/widgets/todo_alert_dialog.dart';
 
-final todo = TodoMobx();
-
 class TodoPage extends StatelessWidget {
-  const TodoPage({Key? key}) : super(key: key);
+  final todo = TodoMobx();
+
+  TodoPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

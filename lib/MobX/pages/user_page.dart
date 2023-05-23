@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mobx_example/MobX/pages/home_page.dart';
 
-class ChangeNamePage extends StatelessWidget {
-  const ChangeNamePage({Key? key}) : super(key: key);
+class UserPage extends StatelessWidget {
+  const UserPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

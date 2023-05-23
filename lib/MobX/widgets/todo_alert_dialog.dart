@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mobx_example/MobX/pages/todo_page.dart';
 
 class TodoAlertDialog extends StatelessWidget {
   final String todoTitle;
@@ -24,7 +23,7 @@ class TodoAlertDialog extends StatelessWidget {
       actions: [
         FilledButton(
           onPressed: () {
-            todo.removeAll();
+            // todo.removeAll();
             Navigator.pop(context);
           },
           style: FilledButton.styleFrom(),

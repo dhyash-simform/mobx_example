@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'dice.dart';
+part of 'dice_store.dart';
 
 // **************************************************************************
 // StoreGenerator

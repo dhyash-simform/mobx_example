@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:mobx_example/MobX/mobx/dice.dart';
+import 'package:mobx_example/MobX/store/dice/dice_store.dart';
 
-Dice dice = Dice();
-
-class DiceExample extends StatefulWidget {
-  const DiceExample({Key? key}) : super(key: key);
+class DicePage extends StatefulWidget {
+  const DicePage({Key? key}) : super(key: key);
 
   @override
-  State<DiceExample> createState() => _DiceExampleState();
+  State<DicePage> createState() => _DicePageState();
 }
 
-class _DiceExampleState extends State<DiceExample> {
+class _DicePageState extends State<DicePage> {
+  Dice dice = Dice();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

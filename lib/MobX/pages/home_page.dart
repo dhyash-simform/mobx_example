@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
-import 'package:mobx_example/MobX/mobx/counter.dart';
-import 'package:mobx_example/MobX/mobx/user.dart';
-import 'package:mobx_example/MobX/pages/change_name_page.dart';
-import 'package:mobx_example/MobX/pages/dice_example.dart';
+import 'package:mobx_example/MobX/pages/connectivity_page.dart';
+import 'package:mobx_example/MobX/pages/fetch_user_page.dart';
+import 'package:mobx_example/MobX/pages/form_page.dart';
+import 'package:mobx_example/MobX/store/counter/counter_store.dart';
+import 'package:mobx_example/MobX/store/user/user_store.dart';
+import 'package:mobx_example/MobX/pages/user_page.dart';
+import 'package:mobx_example/MobX/pages/dice_page.dart';
 import 'package:mobx_example/MobX/pages/random_number_page.dart';
 import 'package:mobx_example/MobX/pages/todo_page.dart';
 
@@ -12,8 +15,6 @@ import 'dart:developer' as debug;
 
 /// flutter_mobx
 /// Provides the Observer widget that listens to observables and automatically rebuilds on changes.
-final counter = Counter();
-final currentUser = User();
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -22,7 +23,11 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
+final currentUser = User();
+
 class _HomePageState extends State<HomePage> {
+  final counter = Counter();
+
   @override
   void initState() {
     super.initState();
@@ -138,7 +143,7 @@ class _HomePageState extends State<HomePage> {
                           padding: EdgeInsets.only(
                             bottom: MediaQuery.of(context).viewInsets.bottom,
                           ),
-                          child: const ChangeNamePage(),
+                          child: const UserPage(),
                         ),
                       );
                     },
@@ -170,7 +175,7 @@ class _HomePageState extends State<HomePage> {
                       onPressed: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (context) => const TodoPage(),
+                            builder: (_) => TodoPage(),
                           ),
                         );
                       },
@@ -185,7 +190,7 @@ class _HomePageState extends State<HomePage> {
                       onPressed: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (context) => const RandomNumberPage(),
+                            builder: (_) => RandomNumberPage(),
                           ),
                         );
                       },
@@ -200,12 +205,57 @@ class _HomePageState extends State<HomePage> {
                       onPressed: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (context) => const DiceExample(),
+                            builder: (_) => FetchUserPage(),
+                          ),
+                        );
+                      },
+                      child: const Text(
+                        'Fetch User Example',
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    FilledButton.tonal(
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (_) => const DicePage(),
                           ),
                         );
                       },
                       child: const Text(
                         'Dice Example',
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    FilledButton.tonal(
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (_) => const FormPage(),
+                          ),
+                        );
+                      },
+                      child: const Text(
+                        'Form Example',
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    FilledButton.tonal(
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (_) => const ConnectivityPage(),
+                          ),
+                        );
+                      },
+                      child: const Text(
+                        'Connectivity Example',
                       ),
                     ),
                   ],
