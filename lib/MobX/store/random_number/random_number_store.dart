@@ -5,7 +5,7 @@ import 'package:mobx/mobx.dart';
 
 part 'random_number_store.g.dart';
 
-class RandomNumber = RandomNumberBase with _$RandomNumber;
+class RandomNumberStore = RandomNumberBase with _$RandomNumberStore;
 
 abstract class RandomNumberBase with Store {
   // ObservableStream stream = StreamController().stream.asObservable();

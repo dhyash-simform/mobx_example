@@ -8,7 +8,7 @@ part of 'user_store.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
-mixin _$User on UserBase, Store {
+mixin _$UserStore on UserBase, Store {
   Computed<String>? _$nameComputed;
 
   @override
@@ -54,7 +54,7 @@ mixin _$User on UserBase, Store {
       ActionController(name: 'UserBase', context: context);
 
   @override
-  dynamic setLastName(String value) {
+  void setLastName(String value) {
     final _$actionInfo =
         _$UserBaseActionController.startAction(name: 'UserBase.setLastName');
     try {
@@ -65,7 +65,7 @@ mixin _$User on UserBase, Store {
   }
 
   @override
-  dynamic setFirstName(String value) {
+  void setFirstName(String value) {
     final _$actionInfo =
         _$UserBaseActionController.startAction(name: 'UserBase.setFirstName');
     try {

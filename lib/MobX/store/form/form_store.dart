@@ -2,7 +2,7 @@ import 'package:mobx/mobx.dart';
 
 part 'form_store.g.dart';
 
-class SignUpForm = SignUpFormBase with _$SignUpForm;
+class SignUpFormStore = SignUpFormBase with _$SignUpFormStore;
 
 abstract class SignUpFormBase with Store {
   @observable

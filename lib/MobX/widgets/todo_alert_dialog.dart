@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:mobx_example/MobX/store/todo/todo_store.dart';
 
 class TodoAlertDialog extends StatelessWidget {
   final String todoTitle;
+  final TodoStore todoStore;
 
-  const TodoAlertDialog({Key? key, required this.todoTitle}) : super(key: key);
+  const TodoAlertDialog({Key? key, required this.todoTitle, required this.todoStore}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,7 @@ class TodoAlertDialog extends StatelessWidget {
       actions: [
         FilledButton(
           onPressed: () {
-            // todo.removeAll();
+            todoStore.removeAll();
             Navigator.pop(context);
           },
           style: FilledButton.styleFrom(),

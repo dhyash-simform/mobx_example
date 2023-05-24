@@ -1,17 +1,19 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
+import 'package:mobx_example/MobX/constants/navigation_extension.dart';
 import 'package:mobx_example/MobX/pages/connectivity_page.dart';
 import 'package:mobx_example/MobX/pages/fetch_user_page.dart';
 import 'package:mobx_example/MobX/pages/form_page.dart';
+import 'package:mobx_example/MobX/pages/hacker_news_page.dart';
 import 'package:mobx_example/MobX/store/counter/counter_store.dart';
 import 'package:mobx_example/MobX/store/user/user_store.dart';
 import 'package:mobx_example/MobX/pages/user_page.dart';
 import 'package:mobx_example/MobX/pages/dice_page.dart';
 import 'package:mobx_example/MobX/pages/random_number_page.dart';
 import 'package:mobx_example/MobX/pages/todo_page.dart';
-
-import 'dart:developer' as debug;
 
 /// flutter_mobx
 /// Provides the Observer widget that listens to observables and automatically rebuilds on changes.
@@ -23,10 +25,9 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-final currentUser = User();
-
 class _HomePageState extends State<HomePage> {
-  final counter = Counter();
+  final UserStore user = UserStore();
+  final CounterStore counter = CounterStore();
 
   @override
   void initState() {
@@ -50,7 +51,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   counterPrint(reaction) {
-    debug.log(counter.value.toString(), name: 'counterPrint');
+    log(counter.value.toString(), name: 'counterPrint');
   }
 
   showCounterSnackBar(int value) {
@@ -92,28 +93,39 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  Map<String, Widget> listOfExamples = {
+    'Todo Example': TodoPage(),
+    'Dice Example': DicePage(),
+    'Random Number Example': RandomNumberPage(),
+    'Form Example': FormPage(),
+    'Connectivity Example': const ConnectivityPage(),
+    'Fetch User Example': FetchUserPage(),
+    'Hacker News Example': const HackerNewsPage(),
+  };
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SafeArea(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 20,
-                vertical: 10,
-              ),
-              child: Row(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 20,
+            vertical: 15,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Observer(
-                    builder: (BuildContext context) => RichText(
+                    builder: (_) => RichText(
                       text: TextSpan(
                         text: 'Hi, 👋\n',
                         children: [
                           TextSpan(
-                            text: currentUser.name,
+                            text: user.name,
                             style: const TextStyle(
                               fontSize: 26,
                               fontWeight: FontWeight.bold,
@@ -143,7 +155,9 @@ class _HomePageState extends State<HomePage> {
                           padding: EdgeInsets.only(
                             bottom: MediaQuery.of(context).viewInsets.bottom,
                           ),
-                          child: const UserPage(),
+                          child: UserPage(
+                            userStore: user,
+                          ),
                         ),
                       );
                     },
@@ -153,116 +167,40 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ],
               ),
-            ),
-            Expanded(
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    const Text(
-                      'You have pushed the button this many times:',
-                    ),
-                    Observer(
-                      builder: (BuildContext context) => Text(
-                        '${counter.value}',
-                        style: Theme.of(context).textTheme.headlineMedium,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    FilledButton.tonal(
-                      onPressed: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (_) => TodoPage(),
-                          ),
-                        );
-                      },
-                      child: const Text(
-                        'Todo Page',
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    FilledButton.tonal(
-                      onPressed: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (_) => RandomNumberPage(),
-                          ),
-                        );
-                      },
-                      child: const Text(
-                        'Random Number Page',
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    FilledButton.tonal(
-                      onPressed: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (_) => FetchUserPage(),
-                          ),
-                        );
-                      },
-                      child: const Text(
-                        'Fetch User Example',
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    FilledButton.tonal(
-                      onPressed: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (_) => const DicePage(),
-                          ),
-                        );
-                      },
-                      child: const Text(
-                        'Dice Example',
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    FilledButton.tonal(
-                      onPressed: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (_) => const FormPage(),
-                          ),
-                        );
-                      },
-                      child: const Text(
-                        'Form Example',
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    FilledButton.tonal(
-                      onPressed: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (_) => const ConnectivityPage(),
-                          ),
-                        );
-                      },
-                      child: const Text(
-                        'Connectivity Example',
-                      ),
-                    ),
-                  ],
+              const SizedBox(
+                height: 20,
+              ),
+              const Text(
+                'You have pushed the button this many times:',
+                textAlign: TextAlign.center,
+              ),
+              Observer(
+                builder: (_) => Text(
+                  '${counter.value}',
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.headlineMedium,
                 ),
               ),
-            ),
-          ],
+              const SizedBox(
+                height: 20,
+              ),
+              ListView.separated(
+                itemCount: listOfExamples.length,
+                shrinkWrap: true,
+                itemBuilder: (context, index) => FilledButton.tonal(
+                  onPressed: () => context.navigateAndPush(
+                    listOfExamples.values.elementAt(index),
+                  ),
+                  child: Text(
+                    listOfExamples.keys.elementAt(index),
+                  ),
+                ),
+                separatorBuilder: (_, index) => const SizedBox(
+                  height: 10,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(

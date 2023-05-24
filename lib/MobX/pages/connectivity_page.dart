@@ -1,8 +1,10 @@
+import 'dart:developer';
+
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
-import 'package:mobx_example/main.dart';
+import 'package:mobx_example/MobX/store/connectivity_check/connectivity_check_store.dart';
 
 class ConnectivityPage extends StatefulWidget {
   const ConnectivityPage({Key? key}) : super(key: key);
@@ -12,14 +14,27 @@ class ConnectivityPage extends StatefulWidget {
 }
 
 class _ConnectivityPageState extends State<ConnectivityPage> {
+  final ConnectivityCheckStore connectivityCheck = ConnectivityCheckStore();
+
+  @override
+  void initState() {
+    autorun((p0) {
+      log(connectivityCheck.connectivityStream.value.toString());
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return ReactionBuilder(
-      builder: (context) {
+      builder: (_) {
         return reaction(
           (p0) => connectivityCheck.connectivityStream.value,
           (result) {
-            print('called ${connectivityCheck.connectivityStream.value}');
+            log(
+              'called ${connectivityCheck.connectivityStream.value}',
+              name: 'connectivity_page.dart',
+            );
             final messenger = ScaffoldMessenger.of(context);
             messenger.showSnackBar(
               SnackBar(
@@ -41,7 +56,7 @@ class _ConnectivityPageState extends State<ConnectivityPage> {
         body: Padding(
           padding: const EdgeInsets.all(16),
           child: Observer(
-            builder: (context) => Text(
+            builder: (_) => Text(
                 'Your connection status: ${connectivityCheck.connectivityStream.value}'),
           ),
         ),

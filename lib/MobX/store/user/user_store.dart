@@ -2,7 +2,7 @@ import 'package:mobx/mobx.dart';
 
 part 'user_store.g.dart';
 
-class User = UserBase with _$User;
+class UserStore = UserBase with _$UserStore;
 
 abstract class UserBase with Store {
   /// core-state
@@ -11,19 +11,19 @@ abstract class UserBase with Store {
 
   /// core-state
   @readonly
-  String _lName = 'Dhrangdhariya';
+  String _lName = 'D';
 
   /// derived-state is depend on core-state
   @computed
   String get name => '$_fName $_lName';
 
   @action
-  setLastName(String value) {
+  void setLastName(String value) {
     _lName = value;
   }
 
   @action
-  setFirstName(String value) {
+  void setFirstName(String value) {
     _fName = value;
   }
 }

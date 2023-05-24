@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:mobx/mobx.dart';
 import 'package:http/http.dart' as http;
@@ -7,13 +8,13 @@ import 'package:mobx_example/MobX/service/network_service.dart';
 
 part 'fetch_user_store.g.dart';
 
-class FetchUser = FetchUserBase with _$FetchUser;
+class FetchUserStore = FetchUserBase with _$FetchUserStore;
 
 abstract class FetchUserBase with Store {
   final NetworkService networkService = NetworkService();
 
   FetchUserBase() {
-    print('called constructor');
+    log('called FetchUserBase constructor');
     fetchUser();
   }
 

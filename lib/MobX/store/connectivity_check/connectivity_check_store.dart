@@ -3,7 +3,8 @@ import 'package:mobx/mobx.dart';
 
 part 'connectivity_check_store.g.dart';
 
-class ConnectivityCheck = ConnectivityCheckBase with _$ConnectivityCheck;
+class ConnectivityCheckStore = ConnectivityCheckBase
+    with _$ConnectivityCheckStore;
 
 abstract class ConnectivityCheckBase with Store {
   @observable

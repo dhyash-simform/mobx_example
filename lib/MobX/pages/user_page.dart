@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:mobx_example/MobX/pages/home_page.dart';
+import 'package:mobx_example/MobX/store/user/user_store.dart';
 
 class UserPage extends StatelessWidget {
-  const UserPage({Key? key}) : super(key: key);
+  final UserStore userStore;
+
+  const UserPage({Key? key, required this.userStore}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     TextEditingController fistNameController = TextEditingController();
     TextEditingController lastNameController = TextEditingController();
-    fistNameController.text = currentUser.fName;
-    lastNameController.text = currentUser.lName;
+    fistNameController.text = userStore.fName;
+    lastNameController.text = userStore.lName;
     InputBorder textFieldBorder = OutlineInputBorder(
       borderRadius: BorderRadius.circular(12),
       borderSide: const BorderSide(
@@ -79,9 +81,7 @@ class UserPage extends StatelessWidget {
             height: 20,
           ),
           FilledButton.tonal(
-            onPressed: () {
-              Navigator.pop(context);
-            },
+            onPressed: () => Navigator.pop(context),
             child: const Text('Cancel'),
           ),
           const SizedBox(
@@ -89,10 +89,10 @@ class UserPage extends StatelessWidget {
           ),
           FilledButton(
             onPressed: () {
-              currentUser.setFirstName(
+              userStore.setFirstName(
                 fistNameController.text.trim(),
               );
-              currentUser.setLastName(
+              userStore.setLastName(
                 lastNameController.text.trim(),
               );
               Navigator.pop(context);

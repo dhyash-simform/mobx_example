@@ -3,7 +3,7 @@ import 'package:mobx_example/MobX/model/todo_modal.dart';
 
 part 'todo_store.g.dart';
 
-class TodoMobx = TodoBase with _$TodoMobx;
+class TodoStore = TodoBase with _$TodoStore;
 
 abstract class TodoBase with Store {
   // @observable
@@ -20,15 +20,18 @@ abstract class TodoBase with Store {
   @computed
   int get todoListLength => todoList.length;
 
+  @action
   void removeAll() {
     todoList.clear();
   }
 
-  addTodo(TodoModel todo) {
+  @action
+  void addTodo(TodoModel todo) {
     todoList.add(todo);
   }
 
-  removeTodo(int index) {
+  @action
+  void removeTodo(int index) {
     todoList.removeAt(index);
   }
 }

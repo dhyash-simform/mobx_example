@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobx_example/MobX/pages/home_page.dart';
 
-import 'MobX/store/connectivity_check/connectivity_check_store.dart';
-
 /// mobx_codegen used for Adds support for
 /// annotating your MobX code with @observable, @computed, @action, making it super simple to use MobX.
 
@@ -12,8 +10,6 @@ import 'MobX/store/connectivity_check/connectivity_check_store.dart';
 void main() {
   runApp(const MyApp());
 }
-
-final ConnectivityCheck connectivityCheck = ConnectivityCheck();
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -26,6 +22,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.red,
+        ),
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.red.withOpacity(0.3),
         ),
         useMaterial3: true,
       ),

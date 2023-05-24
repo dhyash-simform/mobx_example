@@ -4,7 +4,7 @@ import 'package:mobx/mobx.dart';
 
 part 'dice_store.g.dart';
 
-class Dice = DiceBase with _$Dice;
+class DiceStore = DiceBase with _$DiceStore;
 
 abstract class DiceBase with Store {
   @observable
