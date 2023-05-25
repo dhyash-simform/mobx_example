@@ -8,17 +8,17 @@ part of 'form_store.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
-mixin _$SignUpFormStore on SignUpFormBase, Store {
+mixin _$SignUpFormStore on SignUpFormStoreBase, Store {
   Computed<bool>? _$hasErrorsComputed;
 
   @override
   bool get hasErrors =>
       (_$hasErrorsComputed ??= Computed<bool>(() => super.hasErrors,
-              name: 'SignUpFormBase.hasErrors'))
+              name: 'SignUpFormStoreBase.hasErrors'))
           .value;
 
   late final _$usernameAtom =
-      Atom(name: 'SignUpFormBase.username', context: context);
+      Atom(name: 'SignUpFormStoreBase.username', context: context);
 
   @override
   String? get username {
@@ -33,7 +33,8 @@ mixin _$SignUpFormStore on SignUpFormBase, Store {
     });
   }
 
-  late final _$emailAtom = Atom(name: 'SignUpFormBase.email', context: context);
+  late final _$emailAtom =
+      Atom(name: 'SignUpFormStoreBase.email', context: context);
 
   @override
   String? get email {
@@ -49,7 +50,7 @@ mixin _$SignUpFormStore on SignUpFormBase, Store {
   }
 
   late final _$passwordAtom =
-      Atom(name: 'SignUpFormBase.password', context: context);
+      Atom(name: 'SignUpFormStoreBase.password', context: context);
 
   @override
   String? get password {
@@ -65,7 +66,7 @@ mixin _$SignUpFormStore on SignUpFormBase, Store {
   }
 
   late final _$usernameErrorAtom =
-      Atom(name: 'SignUpFormBase.usernameError', context: context);
+      Atom(name: 'SignUpFormStoreBase.usernameError', context: context);
 
   @override
   String? get usernameError {
@@ -81,7 +82,7 @@ mixin _$SignUpFormStore on SignUpFormBase, Store {
   }
 
   late final _$emailErrorAtom =
-      Atom(name: 'SignUpFormBase.emailError', context: context);
+      Atom(name: 'SignUpFormStoreBase.emailError', context: context);
 
   @override
   String? get emailError {
@@ -97,7 +98,7 @@ mixin _$SignUpFormStore on SignUpFormBase, Store {
   }
 
   late final _$passwordErrorAtom =
-      Atom(name: 'SignUpFormBase.passwordError', context: context);
+      Atom(name: 'SignUpFormStoreBase.passwordError', context: context);
 
   @override
   String? get passwordError {
@@ -112,83 +113,83 @@ mixin _$SignUpFormStore on SignUpFormBase, Store {
     });
   }
 
-  late final _$SignUpFormBaseActionController =
-      ActionController(name: 'SignUpFormBase', context: context);
+  late final _$SignUpFormStoreBaseActionController =
+      ActionController(name: 'SignUpFormStoreBase', context: context);
 
   @override
   void setUsername(dynamic value) {
-    final _$actionInfo = _$SignUpFormBaseActionController.startAction(
-        name: 'SignUpFormBase.setUsername');
+    final _$actionInfo = _$SignUpFormStoreBaseActionController.startAction(
+        name: 'SignUpFormStoreBase.setUsername');
     try {
       return super.setUsername(value);
     } finally {
-      _$SignUpFormBaseActionController.endAction(_$actionInfo);
+      _$SignUpFormStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   void setEmail(dynamic value) {
-    final _$actionInfo = _$SignUpFormBaseActionController.startAction(
-        name: 'SignUpFormBase.setEmail');
+    final _$actionInfo = _$SignUpFormStoreBaseActionController.startAction(
+        name: 'SignUpFormStoreBase.setEmail');
     try {
       return super.setEmail(value);
     } finally {
-      _$SignUpFormBaseActionController.endAction(_$actionInfo);
+      _$SignUpFormStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   void setPassword(dynamic value) {
-    final _$actionInfo = _$SignUpFormBaseActionController.startAction(
-        name: 'SignUpFormBase.setPassword');
+    final _$actionInfo = _$SignUpFormStoreBaseActionController.startAction(
+        name: 'SignUpFormStoreBase.setPassword');
     try {
       return super.setPassword(value);
     } finally {
-      _$SignUpFormBaseActionController.endAction(_$actionInfo);
+      _$SignUpFormStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   void validUsername(String? value) {
-    final _$actionInfo = _$SignUpFormBaseActionController.startAction(
-        name: 'SignUpFormBase.validUsername');
+    final _$actionInfo = _$SignUpFormStoreBaseActionController.startAction(
+        name: 'SignUpFormStoreBase.validUsername');
     try {
       return super.validUsername(value);
     } finally {
-      _$SignUpFormBaseActionController.endAction(_$actionInfo);
+      _$SignUpFormStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   void validEmail(String? value) {
-    final _$actionInfo = _$SignUpFormBaseActionController.startAction(
-        name: 'SignUpFormBase.validEmail');
+    final _$actionInfo = _$SignUpFormStoreBaseActionController.startAction(
+        name: 'SignUpFormStoreBase.validEmail');
     try {
       return super.validEmail(value);
     } finally {
-      _$SignUpFormBaseActionController.endAction(_$actionInfo);
+      _$SignUpFormStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   void validPassword(String? value) {
-    final _$actionInfo = _$SignUpFormBaseActionController.startAction(
-        name: 'SignUpFormBase.validPassword');
+    final _$actionInfo = _$SignUpFormStoreBaseActionController.startAction(
+        name: 'SignUpFormStoreBase.validPassword');
     try {
       return super.validPassword(value);
     } finally {
-      _$SignUpFormBaseActionController.endAction(_$actionInfo);
+      _$SignUpFormStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   void validateAll() {
-    final _$actionInfo = _$SignUpFormBaseActionController.startAction(
-        name: 'SignUpFormBase.validateAll');
+    final _$actionInfo = _$SignUpFormStoreBaseActionController.startAction(
+        name: 'SignUpFormStoreBase.validateAll');
     try {
       return super.validateAll();
     } finally {
-      _$SignUpFormBaseActionController.endAction(_$actionInfo);
+      _$SignUpFormStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 

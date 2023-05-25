@@ -8,54 +8,35 @@ part of 'todo_store.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
-mixin _$TodoStore on TodoBase, Store {
+mixin _$TodoStore on TodoStoreBase, Store {
   Computed<int>? _$todoListLengthComputed;
 
   @override
   int get todoListLength =>
       (_$todoListLengthComputed ??= Computed<int>(() => super.todoListLength,
-              name: 'TodoBase.todoListLength'))
+              name: 'TodoStoreBase.todoListLength'))
           .value;
 
-  late final _$TodoBaseActionController =
-      ActionController(name: 'TodoBase', context: context);
+  late final _$todoStoreListAtom =
+      Atom(name: 'TodoStoreBase.todoStoreList', context: context);
 
   @override
-  void removeAll() {
-    final _$actionInfo =
-        _$TodoBaseActionController.startAction(name: 'TodoBase.removeAll');
-    try {
-      return super.removeAll();
-    } finally {
-      _$TodoBaseActionController.endAction(_$actionInfo);
-    }
+  ObservableList<Observable<TodoModel>> get todoStoreList {
+    _$todoStoreListAtom.reportRead();
+    return super.todoStoreList;
   }
 
   @override
-  void addTodo(TodoModel todo) {
-    final _$actionInfo =
-        _$TodoBaseActionController.startAction(name: 'TodoBase.addTodo');
-    try {
-      return super.addTodo(todo);
-    } finally {
-      _$TodoBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void removeTodo(int index) {
-    final _$actionInfo =
-        _$TodoBaseActionController.startAction(name: 'TodoBase.removeTodo');
-    try {
-      return super.removeTodo(index);
-    } finally {
-      _$TodoBaseActionController.endAction(_$actionInfo);
-    }
+  set todoStoreList(ObservableList<Observable<TodoModel>> value) {
+    _$todoStoreListAtom.reportWrite(value, super.todoStoreList, () {
+      super.todoStoreList = value;
+    });
   }
 
   @override
   String toString() {
     return '''
+todoStoreList: ${todoStoreList},
 todoListLength: ${todoListLength}
     ''';
   }

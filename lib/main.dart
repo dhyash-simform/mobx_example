@@ -28,6 +28,7 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
+      home: const HomePage(),
       // home: FutureBuilder(
       //   future: Connectivity().checkConnectivity(),
       //   builder: (context, snapshot) {
@@ -43,7 +44,7 @@ class MyApp extends StatelessWidget {
       //     );
       //   },
       // ),
-      home: const HomePage(),
+
     );
   }
 }

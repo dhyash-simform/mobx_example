@@ -8,15 +8,17 @@ part of 'dice_store.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
-mixin _$DiceStore on DiceBase, Store {
+mixin _$DiceStore on DiceStoreBase, Store {
   Computed<dynamic>? _$totalSumComputed;
 
   @override
-  dynamic get totalSum => (_$totalSumComputed ??=
-          Computed<dynamic>(() => super.totalSum, name: 'DiceBase.totalSum'))
-      .value;
+  dynamic get totalSum =>
+      (_$totalSumComputed ??= Computed<dynamic>(() => super.totalSum,
+              name: 'DiceStoreBase.totalSum'))
+          .value;
 
-  late final _$diceOneAtom = Atom(name: 'DiceBase.diceOne', context: context);
+  late final _$diceOneAtom =
+      Atom(name: 'DiceStoreBase.diceOne', context: context);
 
   @override
   int get diceOne {
@@ -31,7 +33,8 @@ mixin _$DiceStore on DiceBase, Store {
     });
   }
 
-  late final _$diceTwoAtom = Atom(name: 'DiceBase.diceTwo', context: context);
+  late final _$diceTwoAtom =
+      Atom(name: 'DiceStoreBase.diceTwo', context: context);
 
   @override
   int get diceTwo {
@@ -46,17 +49,17 @@ mixin _$DiceStore on DiceBase, Store {
     });
   }
 
-  late final _$DiceBaseActionController =
-      ActionController(name: 'DiceBase', context: context);
+  late final _$DiceStoreBaseActionController =
+      ActionController(name: 'DiceStoreBase', context: context);
 
   @override
   void drawnDice() {
-    final _$actionInfo =
-        _$DiceBaseActionController.startAction(name: 'DiceBase.drawnDice');
+    final _$actionInfo = _$DiceStoreBaseActionController.startAction(
+        name: 'DiceStoreBase.drawnDice');
     try {
       return super.drawnDice();
     } finally {
-      _$DiceBaseActionController.endAction(_$actionInfo);
+      _$DiceStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 

@@ -1,37 +1,40 @@
 import 'package:mobx/mobx.dart';
-import 'package:mobx_example/MobX/model/todo_modal.dart';
+import 'package:mobx_example/MobX/models/todo_model.dart';
 
 part 'todo_store.g.dart';
 
-class TodoStore = TodoBase with _$TodoStore;
+class TodoStore = TodoStoreBase with _$TodoStore;
 
-abstract class TodoBase with Store {
-  // @observable
-  // ObservableList<TodoModel> todoList = ObservableList<TodoModel>();
-
+abstract class TodoStoreBase with Store {
   /// others
   /// ObservableSet<T>
   /// ObservableMap<K,V>
 
-  ObservableList<TodoModel> todoList = [
-    const TodoModel(title: 'Ex. Title here', desc: 'Ex. Desc here'),
+  @observable
+  ObservableList<Observable<TodoModel>> todoStoreList = [
+    Observable(
+      TodoModel(title: 'Ex. Title here', desc: 'Ex. Desc here'),
+    ),
   ].asObservable();
 
   @computed
-  int get todoListLength => todoList.length;
+  int get todoListLength => todoStoreList.length;
 
-  @action
   void removeAll() {
-    todoList.clear();
+    todoStoreList.clear();
   }
 
-  @action
+  void updateTodoTitle(int index, String newTodo) {
+    todoStoreList[index].value.title = newTodo;
+  }
+
   void addTodo(TodoModel todo) {
-    todoList.add(todo);
+    todoStoreList.add(
+      Observable(todo),
+    );
   }
 
-  @action
   void removeTodo(int index) {
-    todoList.removeAt(index);
+    todoStoreList.removeAt(index);
   }
 }

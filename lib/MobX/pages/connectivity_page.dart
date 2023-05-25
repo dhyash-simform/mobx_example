@@ -14,12 +14,12 @@ class ConnectivityPage extends StatefulWidget {
 }
 
 class _ConnectivityPageState extends State<ConnectivityPage> {
-  final ConnectivityCheckStore connectivityCheck = ConnectivityCheckStore();
+  final ConnectivityCheckStore connectivityCheckStore = ConnectivityCheckStore();
 
   @override
   void initState() {
     autorun((p0) {
-      log(connectivityCheck.connectivityStream.value.toString());
+      log(connectivityCheckStore.connectivityStream.value.toString());
     });
     super.initState();
   }
@@ -29,10 +29,10 @@ class _ConnectivityPageState extends State<ConnectivityPage> {
     return ReactionBuilder(
       builder: (_) {
         return reaction(
-          (p0) => connectivityCheck.connectivityStream.value,
+          (p0) => connectivityCheckStore.connectivityStream.value,
           (result) {
             log(
-              'called ${connectivityCheck.connectivityStream.value}',
+              'called ${connectivityCheckStore.connectivityStream.value}',
               name: 'connectivity_page.dart',
             );
             final messenger = ScaffoldMessenger.of(context);
@@ -57,7 +57,7 @@ class _ConnectivityPageState extends State<ConnectivityPage> {
           padding: const EdgeInsets.all(16),
           child: Observer(
             builder: (_) => Text(
-                'Your connection status: ${connectivityCheck.connectivityStream.value}'),
+                'Your connection status: ${connectivityCheckStore.connectivityStream.value}'),
           ),
         ),
       ),

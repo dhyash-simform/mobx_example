@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:mobx_example/MobX/models/todo_model.dart';
 import 'package:mobx_example/MobX/store/todo/todo_store.dart';
-import 'package:mobx_example/MobX/model/todo_modal.dart';
 import 'package:mobx_example/MobX/widgets/todo_alert_dialog.dart';
+import 'package:mobx_example/MobX/widgets/todo_bottom_sheet.dart';
 
 class TodoPage extends StatelessWidget {
   final TodoStore todo = TodoStore();
@@ -13,7 +14,7 @@ class TodoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("TODO"),
+        title: const Text("To-Do"),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 6),
@@ -76,31 +77,47 @@ class TodoPage extends StatelessWidget {
                 ),
               )
             : ListView.separated(
-                itemCount: todo.todoListLength,
+                // itemCount: todo.todoListLength,
+                itemCount: todo.todoStoreList.length,
                 padding: const EdgeInsets.all(20),
                 itemBuilder: (_, index) {
-                  return ListTile(
-                    leading: const Icon(Icons.list),
-                    title: Text(
-                      todo.todoList[index].title,
-                    ),
-                    subtitle: Text(
-                      todo.todoList[index].desc,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        color: Colors.grey.shade600,
+                  return Observer(
+                    builder: (_) => ListTile(
+                      leading: const Icon(Icons.list),
+                      title: Text(
+                        todo.todoStoreList[index].value.title,
                       ),
-                    ),
-                    trailing: IconButton(
-                      onPressed: () => todo.removeTodo(index),
-                      icon: const Icon(
-                        Icons.delete_outline_rounded,
+                      subtitle: Text(
+                        todo.todoStoreList[index].value.desc,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          color: Colors.grey.shade600,
+                        ),
                       ),
-                    ),
-                    tileColor: Colors.black.withOpacity(0.1),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+                      onTap: () => showModalBottomSheet(
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(12),
+                          ),
+                        ),
+                        isScrollControlled: true,
+                        context: context,
+                        builder: (context) => TodoBottomSheet(
+                          index: index,
+                          todoStore: todo,
+                        ),
+                      ),
+                      trailing: IconButton(
+                        onPressed: () => todo.removeTodo(index),
+                        icon: const Icon(
+                          Icons.delete_outline_rounded,
+                        ),
+                      ),
+                      tileColor: Colors.black.withOpacity(0.1),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                     ),
                   );
                 },

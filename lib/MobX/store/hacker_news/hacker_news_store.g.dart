@@ -13,13 +13,13 @@ mixin _$HackerNewsStore on HackerNewsStoreBase, Store {
       Atom(name: 'HackerNewsStoreBase.topNews', context: context);
 
   @override
-  List<NewsModal> get topNews {
+  List<NewsModalStore> get topNews {
     _$topNewsAtom.reportRead();
     return super.topNews;
   }
 
   @override
-  set topNews(List<NewsModal> value) {
+  set topNews(List<NewsModalStore> value) {
     _$topNewsAtom.reportWrite(value, super.topNews, () {
       super.topNews = value;
     });
@@ -29,13 +29,13 @@ mixin _$HackerNewsStore on HackerNewsStoreBase, Store {
       Atom(name: 'HackerNewsStoreBase.latestNews', context: context);
 
   @override
-  List<NewsModal> get latestNews {
+  List<NewsModalStore> get latestNews {
     _$latestNewsAtom.reportRead();
     return super.latestNews;
   }
 
   @override
-  set latestNews(List<NewsModal> value) {
+  set latestNews(List<NewsModalStore> value) {
     _$latestNewsAtom.reportWrite(value, super.latestNews, () {
       super.latestNews = value;
     });
@@ -71,36 +71,6 @@ mixin _$HackerNewsStore on HackerNewsStoreBase, Store {
     _$isLatestNewsLoadingAtom.reportWrite(value, super.isLatestNewsLoading, () {
       super.isLatestNewsLoading = value;
     });
-  }
-
-  late final _$getTopNewsAsyncAction =
-      AsyncAction('HackerNewsStoreBase.getTopNews', context: context);
-
-  @override
-  Future<dynamic> getTopNews() {
-    return _$getTopNewsAsyncAction.run(() => super.getTopNews());
-  }
-
-  late final _$getLatestNewsAsyncAction =
-      AsyncAction('HackerNewsStoreBase.getLatestNews', context: context);
-
-  @override
-  Future<dynamic> getLatestNews() {
-    return _$getLatestNewsAsyncAction.run(() => super.getLatestNews());
-  }
-
-  late final _$HackerNewsStoreBaseActionController =
-      ActionController(name: 'HackerNewsStoreBase', context: context);
-
-  @override
-  void changeTitle(int index) {
-    final _$actionInfo = _$HackerNewsStoreBaseActionController.startAction(
-        name: 'HackerNewsStoreBase.changeTitle');
-    try {
-      return super.changeTitle(index);
-    } finally {
-      _$HackerNewsStoreBaseActionController.endAction(_$actionInfo);
-    }
   }
 
   @override

@@ -3,10 +3,10 @@ import 'package:mobx/mobx.dart';
 
 part 'connectivity_check_store.g.dart';
 
-class ConnectivityCheckStore = ConnectivityCheckBase
+class ConnectivityCheckStore = ConnectivityCheckStoreBase
     with _$ConnectivityCheckStore;
 
-abstract class ConnectivityCheckBase with Store {
+abstract class ConnectivityCheckStoreBase with Store {
   @observable
   ObservableStream<ConnectivityResult> connectivityStream =
       ObservableStream<ConnectivityResult>(

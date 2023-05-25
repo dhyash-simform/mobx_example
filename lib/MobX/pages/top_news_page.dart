@@ -16,7 +16,7 @@ class _TopNewsPageState extends State<TopNewsPage>
     with AutomaticKeepAliveClientMixin {
   @override
   void initState() {
-    widget.hackerNewsStore.getTopNews();
+    widget.hackerNewsStore.fetchTopNews();
     super.initState();
   }
 
@@ -25,9 +25,7 @@ class _TopNewsPageState extends State<TopNewsPage>
     super.build(context);
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: (){
-          widget.hackerNewsStore.changeTitle(2);
-        },
+        onPressed: () => widget.hackerNewsStore.changeTitle(1, 'New Title'),
       ),
       body: Observer(
         builder: (_) {
@@ -40,14 +38,16 @@ class _TopNewsPageState extends State<TopNewsPage>
                   shrinkWrap: true,
                   itemCount: widget.hackerNewsStore.topNews.length,
                   itemBuilder: (_, index) {
-                    return ListTile(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
+                    return Observer(
+                      builder: (_) => ListTile(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        title: Text(
+                          widget.hackerNewsStore.topNews[index].title ?? '',
+                        ),
+                        tileColor: Colors.black.withOpacity(0.08),
                       ),
-                      title: Text(
-                        widget.hackerNewsStore.topNews[index].title ?? '',
-                      ),
-                      tileColor: Colors.black.withOpacity(0.08),
                     );
                   },
                   separatorBuilder: (_, index) => const SizedBox(

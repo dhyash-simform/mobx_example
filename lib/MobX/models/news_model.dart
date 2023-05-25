@@ -1,4 +1,4 @@
-class NewsModal {
+class NewsModel {
   String? by;
   int? descendants;
   int? id;
@@ -8,7 +8,7 @@ class NewsModal {
   String? type;
   String? url;
 
-  NewsModal(
+  NewsModel(
       {this.by,
       this.descendants,
       this.id,
@@ -18,7 +18,7 @@ class NewsModal {
       this.type,
       this.url});
 
-  NewsModal.fromJson(Map<String, dynamic> json) {
+  NewsModel.fromJson(Map<String, dynamic> json) {
     by = json['by'];
     descendants = json['descendants'];
     id = json['id'];

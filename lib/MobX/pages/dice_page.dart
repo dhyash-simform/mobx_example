@@ -3,7 +3,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx_example/MobX/store/dice/dice_store.dart';
 
 class DicePage extends StatelessWidget {
-  final DiceStore dice = DiceStore();
+  final DiceStore diceStore = DiceStore();
 
   DicePage({Key? key}) : super(key: key);
 
@@ -11,7 +11,7 @@ class DicePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Dice Example"),
+        title: const Text("Dice"),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -21,14 +21,14 @@ class DicePage extends StatelessWidget {
             children: [
               Observer(
                 builder: (_) => Image.asset(
-                  'assets/images/dice-${dice.diceOne}.png',
+                  'assets/images/dice-${diceStore.diceOne}.png',
                   width: 90,
                   height: 90,
                 ),
               ),
               Observer(
                 builder: (_) => Image.asset(
-                  'assets/images/dice-${dice.diceTwo}.png',
+                  'assets/images/dice-${diceStore.diceTwo}.png',
                   width: 90,
                   height: 90,
                 ),
@@ -39,12 +39,12 @@ class DicePage extends StatelessWidget {
             height: 20,
           ),
           Observer(
-            builder: (_) => Text('Total sum: ${dice.totalSum}'),
+            builder: (_) => Text('Total sum: ${diceStore.totalSum}'),
           ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: dice.drawnDice,
+        onPressed: diceStore.drawnDice,
         child: const Icon(
           Icons.swap_horiz_outlined,
         ),

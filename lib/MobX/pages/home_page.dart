@@ -5,15 +5,15 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
 import 'package:mobx_example/MobX/constants/navigation_extension.dart';
 import 'package:mobx_example/MobX/pages/connectivity_page.dart';
-import 'package:mobx_example/MobX/pages/fetch_user_page.dart';
+import 'package:mobx_example/MobX/pages/person_page.dart';
+import 'package:mobx_example/MobX/pages/user_page.dart';
 import 'package:mobx_example/MobX/pages/form_page.dart';
 import 'package:mobx_example/MobX/pages/hacker_news_page.dart';
 import 'package:mobx_example/MobX/store/counter/counter_store.dart';
-import 'package:mobx_example/MobX/store/user/user_store.dart';
-import 'package:mobx_example/MobX/pages/user_page.dart';
 import 'package:mobx_example/MobX/pages/dice_page.dart';
 import 'package:mobx_example/MobX/pages/random_number_page.dart';
 import 'package:mobx_example/MobX/pages/todo_page.dart';
+import 'package:mobx_example/MobX/store/person/person_store.dart';
 
 /// flutter_mobx
 /// Provides the Observer widget that listens to observables and automatically rebuilds on changes.
@@ -26,8 +26,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final UserStore user = UserStore();
-  final CounterStore counter = CounterStore();
+  final PersonStore personStore = PersonStore();
+  final CounterStore counterStore = CounterStore();
 
   @override
   void initState() {
@@ -38,7 +38,7 @@ class _HomePageState extends State<HomePage> {
 
     /// for performing any actions
     reaction<int>(
-      (reaction1) => counter.value,
+      (reaction1) => counterStore.value,
       // showCounterSnackBar,
       (reaction1) {
         /// show output when match any condition
@@ -51,7 +51,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   counterPrint(reaction) {
-    log(counter.value.toString(), name: 'counterPrint');
+    log(counterStore.value.toString(), name: 'counterPrint');
   }
 
   showCounterSnackBar(int value) {
@@ -99,7 +99,7 @@ class _HomePageState extends State<HomePage> {
     'Random Number Example': RandomNumberPage(),
     'Form Example': FormPage(),
     'Connectivity Example': const ConnectivityPage(),
-    'Fetch User Example': FetchUserPage(),
+    'User Example': UserPage(),
     'Hacker News Example': const HackerNewsPage(),
   };
 
@@ -125,7 +125,7 @@ class _HomePageState extends State<HomePage> {
                         text: 'Hi, 👋\n',
                         children: [
                           TextSpan(
-                            text: user.name,
+                            text: personStore.name,
                             style: const TextStyle(
                               fontSize: 26,
                               fontWeight: FontWeight.bold,
@@ -142,30 +142,44 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   IconButton(
-                    onPressed: () {
-                      showModalBottomSheet(
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.vertical(
-                            top: Radius.circular(12),
-                          ),
+                    onPressed: () => showModalBottomSheet(
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(12),
                         ),
-                        isScrollControlled: true,
-                        context: context,
-                        builder: (context) => Padding(
-                          padding: EdgeInsets.only(
-                            bottom: MediaQuery.of(context).viewInsets.bottom,
-                          ),
-                          child: UserPage(
-                            userStore: user,
-                          ),
+                      ),
+                      isScrollControlled: true,
+                      context: context,
+                      builder: (context) => Padding(
+                        padding: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).viewInsets.bottom,
                         ),
-                      );
-                    },
+                        child: PersonPage(
+                          personStore: personStore,
+                        ),
+                      ),
+                    ),
                     icon: const Icon(
                       Icons.settings,
                     ),
                   ),
                 ],
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Observer(
+                builder: (_) => Text(
+                  personStore.user.fName,
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Observer(
+                builder: (_) => Text(
+                  personStore.user2.value.fName,
+                ),
               ),
               const SizedBox(
                 height: 20,
@@ -176,7 +190,7 @@ class _HomePageState extends State<HomePage> {
               ),
               Observer(
                 builder: (_) => Text(
-                  '${counter.value}',
+                  '${counterStore.value}',
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.headlineMedium,
                 ),
@@ -204,7 +218,11 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: counter.increment,
+        // onPressed: counter.increment,
+        onPressed: () {
+          // userStore.changeUser('Yash');
+          personStore.changeUser2();
+        },
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ),

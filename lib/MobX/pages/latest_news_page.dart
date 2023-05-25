@@ -16,7 +16,7 @@ class _LatestNewsPageState extends State<LatestNewsPage>
     with AutomaticKeepAliveClientMixin {
   @override
   void initState() {
-    widget.hackerNewsStore.getLatestNews();
+    widget.hackerNewsStore.fetchLatestNews();
     super.initState();
   }
 

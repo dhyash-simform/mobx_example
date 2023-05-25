@@ -1,4 +1,4 @@
-class UserModal {
+class UserModel {
   int? id;
   String? name;
   String? username;
@@ -8,7 +8,7 @@ class UserModal {
   String? website;
   Company? company;
 
-  UserModal(
+  UserModel(
       {this.id,
       this.name,
       this.username,
@@ -18,7 +18,7 @@ class UserModal {
       this.website,
       this.company});
 
-  UserModal.fromJson(Map<String, dynamic> json) {
+  UserModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     username = json['username'];

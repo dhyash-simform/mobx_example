@@ -5,12 +5,12 @@ import 'package:mobx/mobx.dart';
 
 part 'random_number_store.g.dart';
 
-class RandomNumberStore = RandomNumberBase with _$RandomNumberStore;
+class RandomNumberStore = RandomNumberStoreBase with _$RandomNumberStore;
 
-abstract class RandomNumberBase with Store {
+abstract class RandomNumberStoreBase with Store {
   // ObservableStream stream = StreamController().stream.asObservable();
 
-  RandomNumberBase() {
+  RandomNumberStoreBase() {
     _streamController = StreamController<int>();
 
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {

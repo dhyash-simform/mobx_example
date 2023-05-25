@@ -1,29 +1,43 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:mobx/mobx.dart';
+import 'package:http/http.dart' as http;
+import 'package:mobx_example/MobX/models/user_model.dart';
+import 'package:mobx_example/MobX/service/user_service.dart';
 
 part 'user_store.g.dart';
 
-class UserStore = UserBase with _$UserStore;
+class UserStore = UserStoreBase with _$UserStore;
 
-abstract class UserBase with Store {
-  /// core-state
-  @readonly
-  String _fName = 'Yash';
+abstract class UserStoreBase with Store {
+  final UserService networkService = UserService();
 
-  /// core-state
-  @readonly
-  String _lName = 'D';
-
-  /// derived-state is depend on core-state
-  @computed
-  String get name => '$_fName $_lName';
-
-  @action
-  void setLastName(String value) {
-    _lName = value;
+  UserStoreBase() {
+    log('called FetchUserBase constructor');
+    fetchUser();
   }
 
+  @observable
+  ObservableFuture<List<UserModel>> userListFuture = ObservableFuture.value([]);
+
+  /// second way
   @action
-  void setFirstName(String value) {
-    _fName = value;
+  Future fetchUser() => userListFuture = ObservableFuture(
+        networkService.getData('https://jsonplaceholder.typicode.com/users'),
+      );
+
+  /// first way
+  ObservableFuture<List<UserModel>> getUser = ObservableFuture(
+    http.get(Uri.parse('https://jsonplaceholder.typicode.com/users')).then(
+          (value) => (json.decode(value.body) as List<dynamic>)
+              .map((e) => UserModel.fromJson(e))
+              .toList(),
+        ),
+  );
+
+  @action
+  void changeNameAtIndex({required int index, required String newName}) {
+    userListFuture.value?[index].name = newName;
   }
 }

@@ -5,7 +5,7 @@ import 'package:mobx_example/MobX/store/form/form_store.dart';
 class FormPage extends StatelessWidget {
   FormPage({Key? key}) : super(key: key);
 
-  final SignUpFormStore signUpForm = SignUpFormStore();
+  final SignUpFormStore signUpFormStore = SignUpFormStore();
 
   @override
   Widget build(BuildContext context) {
@@ -20,12 +20,12 @@ class FormPage extends StatelessWidget {
             Observer(
               builder: (_) => TextField(
                 onChanged: (value) {
-                  signUpForm.setUsername(value);
-                  signUpForm.validUsername(value);
+                  signUpFormStore.setUsername(value);
+                  signUpFormStore.validUsername(value);
                 },
                 decoration: InputDecoration(
                   hintText: 'Username',
-                  errorText: signUpForm.usernameError,
+                  errorText: signUpFormStore.usernameError,
                 ),
               ),
             ),
@@ -35,12 +35,12 @@ class FormPage extends StatelessWidget {
             Observer(
               builder: (_) => TextField(
                 onChanged: (value) {
-                  signUpForm.setEmail(value);
-                  signUpForm.validEmail(value);
+                  signUpFormStore.setEmail(value);
+                  signUpFormStore.validEmail(value);
                 },
                 decoration: InputDecoration(
                   hintText: 'Email',
-                  errorText: signUpForm.emailError,
+                  errorText: signUpFormStore.emailError,
                 ),
               ),
             ),
@@ -50,12 +50,12 @@ class FormPage extends StatelessWidget {
             Observer(
               builder: (_) => TextField(
                 onChanged: (value) {
-                  signUpForm.setPassword(value);
-                  signUpForm.validPassword(value);
+                  signUpFormStore.setPassword(value);
+                  signUpFormStore.validPassword(value);
                 },
                 decoration: InputDecoration(
                   hintText: 'Password',
-                  errorText: signUpForm.passwordError,
+                  errorText: signUpFormStore.passwordError,
                 ),
               ),
             ),
@@ -64,10 +64,10 @@ class FormPage extends StatelessWidget {
             ),
             Observer(
               builder: (_) => ElevatedButton(
-                onPressed: signUpForm.hasErrors
+                onPressed: signUpFormStore.hasErrors
                     ? null
                     : () {
-                        signUpForm.validateAll();
+                        signUpFormStore.validateAll();
                       },
                 child: const Text('Sign up'),
               ),

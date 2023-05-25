@@ -8,77 +8,52 @@ part of 'user_store.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
-mixin _$UserStore on UserBase, Store {
-  Computed<String>? _$nameComputed;
+mixin _$UserStore on UserStoreBase, Store {
+  late final _$userListFutureAtom =
+      Atom(name: 'UserStoreBase.userListFuture', context: context);
 
   @override
-  String get name => (_$nameComputed ??=
-          Computed<String>(() => super.name, name: 'UserBase.name'))
-      .value;
-
-  late final _$_fNameAtom = Atom(name: 'UserBase._fName', context: context);
-
-  String get fName {
-    _$_fNameAtom.reportRead();
-    return super._fName;
+  ObservableFuture<List<UserModel>> get userListFuture {
+    _$userListFutureAtom.reportRead();
+    return super.userListFuture;
   }
 
   @override
-  String get _fName => fName;
-
-  @override
-  set _fName(String value) {
-    _$_fNameAtom.reportWrite(value, super._fName, () {
-      super._fName = value;
+  set userListFuture(ObservableFuture<List<UserModel>> value) {
+    _$userListFutureAtom.reportWrite(value, super.userListFuture, () {
+      super.userListFuture = value;
     });
   }
 
-  late final _$_lNameAtom = Atom(name: 'UserBase._lName', context: context);
-
-  String get lName {
-    _$_lNameAtom.reportRead();
-    return super._lName;
-  }
+  late final _$UserStoreBaseActionController =
+      ActionController(name: 'UserStoreBase', context: context);
 
   @override
-  String get _lName => lName;
-
-  @override
-  set _lName(String value) {
-    _$_lNameAtom.reportWrite(value, super._lName, () {
-      super._lName = value;
-    });
-  }
-
-  late final _$UserBaseActionController =
-      ActionController(name: 'UserBase', context: context);
-
-  @override
-  void setLastName(String value) {
-    final _$actionInfo =
-        _$UserBaseActionController.startAction(name: 'UserBase.setLastName');
+  Future<dynamic> fetchUser() {
+    final _$actionInfo = _$UserStoreBaseActionController.startAction(
+        name: 'UserStoreBase.fetchUser');
     try {
-      return super.setLastName(value);
+      return super.fetchUser();
     } finally {
-      _$UserBaseActionController.endAction(_$actionInfo);
+      _$UserStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  void setFirstName(String value) {
-    final _$actionInfo =
-        _$UserBaseActionController.startAction(name: 'UserBase.setFirstName');
+  void changeNameAtIndex({required int index, required String newName}) {
+    final _$actionInfo = _$UserStoreBaseActionController.startAction(
+        name: 'UserStoreBase.changeNameAtIndex');
     try {
-      return super.setFirstName(value);
+      return super.changeNameAtIndex(index: index, newName: newName);
     } finally {
-      _$UserBaseActionController.endAction(_$actionInfo);
+      _$UserStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   String toString() {
     return '''
-name: ${name}
+userListFuture: ${userListFuture}
     ''';
   }
 }

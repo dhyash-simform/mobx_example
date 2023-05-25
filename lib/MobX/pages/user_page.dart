@@ -1,105 +1,72 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:mobx/mobx.dart';
 import 'package:mobx_example/MobX/store/user/user_store.dart';
 
 class UserPage extends StatelessWidget {
-  final UserStore userStore;
+  UserPage({Key? key}) : super(key: key);
 
-  const UserPage({Key? key, required this.userStore}) : super(key: key);
+  final UserStore userStore = UserStore();
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController fistNameController = TextEditingController();
-    TextEditingController lastNameController = TextEditingController();
-    fistNameController.text = userStore.fName;
-    lastNameController.text = userStore.lName;
-    InputBorder textFieldBorder = OutlineInputBorder(
-      borderRadius: BorderRadius.circular(12),
-      borderSide: const BorderSide(
-        color: Colors.transparent,
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Fetch Users"),
       ),
-    );
-    return Padding(
-      padding: const EdgeInsets.all(20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Text(
-            'Change Your Name',
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          TextField(
-            controller: fistNameController,
-            textInputAction: TextInputAction.next,
-            decoration: InputDecoration(
-              helperText: 'Ex. First Name',
-              hintText: 'Enter Your First Name',
-              hintStyle: const TextStyle(
-                color: Colors.grey,
-              ),
-              fillColor: Colors.black.withOpacity(0.06),
-              contentPadding: const EdgeInsets.all(18),
-              filled: true,
-              errorBorder: textFieldBorder,
-              focusedBorder: textFieldBorder,
-              focusedErrorBorder: textFieldBorder,
-              disabledBorder: textFieldBorder,
-              enabledBorder: textFieldBorder,
-              border: textFieldBorder,
-            ),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          TextField(
-            controller: lastNameController,
-            textInputAction: TextInputAction.done,
-            decoration: InputDecoration(
-              helperText: 'Ex. Last Name',
-              hintText: 'Enter Your Last Name',
-              hintStyle: const TextStyle(
-                color: Colors.grey,
-              ),
-              fillColor: Colors.black.withOpacity(0.06),
-              contentPadding: const EdgeInsets.all(18),
-              filled: true,
-              errorBorder: textFieldBorder,
-              focusedBorder: textFieldBorder,
-              focusedErrorBorder: textFieldBorder,
-              disabledBorder: textFieldBorder,
-              enabledBorder: textFieldBorder,
-              border: textFieldBorder,
-            ),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          FilledButton.tonal(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          FilledButton(
-            onPressed: () {
-              userStore.setFirstName(
-                fistNameController.text.trim(),
+      body: Observer(
+        builder: (_) {
+          final value = userStore.userListFuture.status;
+          switch (value) {
+            case FutureStatus.fulfilled:
+              return RefreshIndicator(
+                onRefresh: userStore.fetchUser,
+                child: ListView.separated(
+                  itemCount: userStore.userListFuture.value?.length ?? 0,
+                  physics: const BouncingScrollPhysics(),
+                  padding: const EdgeInsets.all(20),
+                  itemBuilder: (_, index) {
+                    final userModel = userStore.userListFuture.value;
+                    return ListTile(
+                      leading: const Icon(Icons.person),
+                      title: Text(
+                        userModel?[index].name ?? ' ',
+                      ),
+                      subtitle: Text(
+                        userModel?[index].email ?? ' ',
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          color: Colors.grey.shade600,
+                        ),
+                      ),
+                      tileColor: Colors.black.withOpacity(0.1),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    );
+                  },
+                  separatorBuilder: (_, index) => const SizedBox(
+                    height: 15,
+                  ),
+                ),
               );
-              userStore.setLastName(
-                lastNameController.text.trim(),
+            case FutureStatus.rejected:
+              return const Center(
+                child: Text(
+                  'Error 404!',
+                  style: TextStyle(
+                    fontSize: 42,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               );
-              Navigator.pop(context);
-            },
-            child: const Text('Confirm'),
-          ),
-        ],
+            case FutureStatus.pending:
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+          }
+        },
       ),
     );
   }
