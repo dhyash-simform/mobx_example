@@ -170,14 +170,6 @@ class _HomePageState extends State<HomePage> {
               ),
               Observer(
                 builder: (_) => Text(
-                  personStore.user.fName,
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Observer(
-                builder: (_) => Text(
                   personStore.user2.value.fName,
                 ),
               ),

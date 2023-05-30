@@ -26,6 +26,7 @@ abstract class TodoStoreBase with Store {
 
   void updateTodoTitle(int index, String newTodo) {
     todoStoreList[index].value.title = newTodo;
+    todoStoreList[index].reportChanged();
   }
 
   void addTodo(TodoModel todo) {

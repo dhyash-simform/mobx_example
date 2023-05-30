@@ -18,18 +18,12 @@ abstract class PersonStoreBase with Store {
   @computed
   String get name => '$_fName $_lName';
 
-  @observable
-  PersonModel user = PersonModel('fName', 'lName');
-
   final user2 = Observable(PersonModel('yash', 'dh'));
 
   @action
   void changeUser2() {
-    user2.value = PersonModel('fName', user2.value.lName);
-  }
-
-  void changeUser(String value) {
-    user = PersonModel(value, user.lName);
+    user2.value.fName = 'yash2';
+    user2.reportChanged();
   }
 
   @action

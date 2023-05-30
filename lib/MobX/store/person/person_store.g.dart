@@ -52,21 +52,6 @@ mixin _$PersonStore on PersonStoreBase, Store {
     });
   }
 
-  late final _$userAtom = Atom(name: 'PersonStoreBase.user', context: context);
-
-  @override
-  PersonModel get user {
-    _$userAtom.reportRead();
-    return super.user;
-  }
-
-  @override
-  set user(PersonModel value) {
-    _$userAtom.reportWrite(value, super.user, () {
-      super.user = value;
-    });
-  }
-
   late final _$PersonStoreBaseActionController =
       ActionController(name: 'PersonStoreBase', context: context);
 
@@ -106,7 +91,6 @@ mixin _$PersonStore on PersonStoreBase, Store {
   @override
   String toString() {
     return '''
-user: ${user},
 name: ${name}
     ''';
   }
