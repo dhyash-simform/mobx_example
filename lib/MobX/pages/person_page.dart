@@ -89,12 +89,13 @@ class PersonPage extends StatelessWidget {
           ),
           FilledButton(
             onPressed: () {
-              personStore.setFirstName(
-                fistNameController.text.trim(),
-              );
-              personStore.setLastName(
-                lastNameController.text.trim(),
-              );
+              personStore
+                ..setFirstName(
+                  fistNameController.text.trim(),
+                )
+                ..setLastName(
+                  lastNameController.text.trim(),
+                );
               Navigator.pop(context);
             },
             child: const Text('Confirm'),

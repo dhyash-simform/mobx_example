@@ -105,6 +105,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final store = CounterStore();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SafeArea(
@@ -182,7 +183,7 @@ class _HomePageState extends State<HomePage> {
               ),
               Observer(
                 builder: (_) => Text(
-                  '${counterStore.value}',
+                  '${store.value}',
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.headlineMedium,
                 ),
@@ -211,9 +212,10 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         // onPressed: counter.increment,
-        onPressed: () {
-          // userStore.changeUser('Yash');
-          personStore.changeUser2();
+        onPressed:  ()
+        {
+          store.value = 10;
+          // store.increment();
         },
         tooltip: 'Increment',
         child: const Icon(Icons.add),

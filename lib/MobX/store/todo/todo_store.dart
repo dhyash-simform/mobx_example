@@ -13,12 +13,26 @@ abstract class TodoStoreBase with Store {
   @observable
   ObservableList<Observable<TodoModel>> todoStoreList = [
     Observable(
-      TodoModel(title: 'Ex. Title here', desc: 'Ex. Desc here'),
+      TodoModel(
+        title: 'Ex. Title here',
+        desc: 'Ex. Desc here',
+        isCompleted: false,
+      ),
     ),
   ].asObservable();
 
   @computed
   int get todoListLength => todoStoreList.length;
+
+  @computed
+  List<Observable<TodoModel>> get completedTodoList => todoStoreList
+      .where((element) => element.value.isCompleted == true)
+      .toList();
+
+  @computed
+  List<Observable<TodoModel>> get pendingTodoList => todoStoreList
+      .where((element) => element.value.isCompleted == false)
+      .toList();
 
   void removeAll() {
     todoStoreList.clear();
@@ -26,6 +40,11 @@ abstract class TodoStoreBase with Store {
 
   void updateTodoTitle(int index, String newTodo) {
     todoStoreList[index].value.title = newTodo;
+    todoStoreList[index].reportChanged();
+  }
+
+  void updateTodoCompleted(int index, bool value) {
+    todoStoreList[index].value.isCompleted = value;
     todoStoreList[index].reportChanged();
   }
 

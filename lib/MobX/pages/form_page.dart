@@ -19,10 +19,9 @@ class FormPage extends StatelessWidget {
           children: [
             Observer(
               builder: (_) => TextField(
-                onChanged: (value) {
-                  signUpFormStore.setUsername(value);
-                  signUpFormStore.validUsername(value);
-                },
+                onChanged: (value) => signUpFormStore
+                  ..setUsername(value)
+                  ..validUsername(value),
                 decoration: InputDecoration(
                   hintText: 'Username',
                   errorText: signUpFormStore.usernameError,
@@ -34,10 +33,9 @@ class FormPage extends StatelessWidget {
             ),
             Observer(
               builder: (_) => TextField(
-                onChanged: (value) {
-                  signUpFormStore.setEmail(value);
-                  signUpFormStore.validEmail(value);
-                },
+                onChanged: (value) => signUpFormStore
+                  ..setEmail(value)
+                  ..validEmail(value),
                 decoration: InputDecoration(
                   hintText: 'Email',
                   errorText: signUpFormStore.emailError,
@@ -49,10 +47,9 @@ class FormPage extends StatelessWidget {
             ),
             Observer(
               builder: (_) => TextField(
-                onChanged: (value) {
-                  signUpFormStore.setPassword(value);
-                  signUpFormStore.validPassword(value);
-                },
+                onChanged: (value) => signUpFormStore
+                  ..setPassword(value)
+                  ..validPassword(value),
                 decoration: InputDecoration(
                   hintText: 'Password',
                   errorText: signUpFormStore.passwordError,
@@ -66,9 +63,7 @@ class FormPage extends StatelessWidget {
               builder: (_) => ElevatedButton(
                 onPressed: signUpFormStore.hasErrors
                     ? null
-                    : () {
-                        signUpFormStore.validateAll();
-                      },
+                    : () => signUpFormStore.validateAll,
                 child: const Text('Sign up'),
               ),
             ),

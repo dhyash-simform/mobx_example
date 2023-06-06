@@ -35,17 +35,15 @@ class _LatestNewsPageState extends State<LatestNewsPage>
               padding: const EdgeInsets.all(20),
               shrinkWrap: true,
               itemCount: widget.hackerNewsStore.latestNews.length,
-              itemBuilder: (_, index) {
-                return ListTile(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  title: Text(
-                    widget.hackerNewsStore.latestNews[index].title ?? '',
-                  ),
-                  tileColor: Colors.black.withOpacity(0.08),
-                );
-              },
+              itemBuilder: (_, index) => ListTile(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                title: Text(
+                  widget.hackerNewsStore.latestNews[index].title ?? '',
+                ),
+                tileColor: Colors.black.withOpacity(0.08),
+              ),
               separatorBuilder: (_, index) => const SizedBox(
                 height: 15,
               ),

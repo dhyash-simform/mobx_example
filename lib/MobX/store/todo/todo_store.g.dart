@@ -16,6 +16,14 @@ mixin _$TodoStore on TodoStoreBase, Store {
       (_$todoListLengthComputed ??= Computed<int>(() => super.todoListLength,
               name: 'TodoStoreBase.todoListLength'))
           .value;
+  Computed<List<Observable<TodoModel>>>? _$completedTodoListComputed;
+
+  @override
+  List<Observable<TodoModel>> get completedTodoList =>
+      (_$completedTodoListComputed ??= Computed<List<Observable<TodoModel>>>(
+              () => super.completedTodoList,
+              name: 'TodoStoreBase.completedTodoList'))
+          .value;
 
   late final _$todoStoreListAtom =
       Atom(name: 'TodoStoreBase.todoStoreList', context: context);
@@ -37,7 +45,8 @@ mixin _$TodoStore on TodoStoreBase, Store {
   String toString() {
     return '''
 todoStoreList: ${todoStoreList},
-todoListLength: ${todoListLength}
+todoListLength: ${todoListLength},
+completedTodoList: ${completedTodoList}
     ''';
   }
 }
